@@ -1,68 +1,53 @@
 \documentclass[dvips,12pt]{article}
 
-% Any percent sign marks a comment to the end of the line
-
-% Every latex document starts with a documentclass declaration like this
-% The option dvips allows for graphics, 12pt is the font size, and article
-%   is the style
-
 \usepackage[pdftex]{graphicx}
 \usepackage{url}
 
-% These are additional packages for "pdflatex", graphics, and to include
-% hyperlinks inside a document.
 
 \setlength{\oddsidemargin}{0.25in}
 \setlength{\textwidth}{6.5in}
 \setlength{\topmargin}{0in}
 \setlength{\textheight}{8.5in}
 
-% These force using more of the margins that is the default style
 
 \begin{document}
 
-% Everything after this becomes content
-% Replace the text between curly brackets with your own
 
-\title{A Template for Your Project Proposal}
-\author{Your group members names here}
+\title{Sharing confidential information with privacy}
+\author{Luca Melis}
 \date{\today}
 
-% You can leave out "date" and it will be added automatically for today
-% You can change the "\today" date to any text you like
 
 
 \maketitle
+\section{Motivations}
+The word \emph{privacy} commonly refers to the ability of a person or a group to make information about themselves private. The availability of sensitive information about an individual often results in having power over that person and thereby generating serious concerns on potential misuse by governments, corporations or even other individuals. Indeed, many countries have laws and constitutions that in some way limit privacy.
 
-% This command causes the title to be created in the document
 
-\section{Introduction}
+In today's world, data is generally shared in a digital format and gathered by third parties.
+Thus the disclosure of private information is becoming a critical concern raising legal, monetary or even emotional, privacy issues.
+   
+The need for privacy-preserving sharing of confidential information happens in many realistic scenarios.
+A typical scenario may involve two parties: one that needs information from the other that is either motivated, or obliged, to share only the requested information.
+Consequently, there is a struggle between information sharing and privacy.
 
-% An article style is separated into sections and subsections with
-%   markup such as this.  Use \section*{Principles} for unnumbered sections.
+Let's consider the following examples:
+\begin{itemize}
+\item \textbf{Law enforcement} Two national law enforcement bodies (e.g., USA’s FBI and UK’s MI5) want to compare their respective
+databases of terrorist suspects. National privacy laws prevent them from revealing bulk data, however,
+by treaty, they are allowed to share information on suspects of common interest.
+\item \textbf{Genomics} Genome Sequencing (WGS) is a revolutionary technology that determines the complete genetic blueprint of any organism. Risks of a genome disclosure motivate the need for secure storage and testing of human genomes. In particular, there is a need for genetic testing by physicians and/or laboratories without full access to individuals' genomes. In an idealized future setting, genetic tests should only disclose the required minimum amount of information. At the same time, genomics and biotechnology companies often treat test details as trade secrets, since they represent valuable intellectual property.
+\item \textbf{Face recognition} Automatic recognition of human faces is becoming increasingly popular in civilian and law enforcement applications that require reliable recognition of humans. A typical application scenario for privacy-preserving face recognition concerns a client who privately searches for a specific face image in the face image database of a server.
+\item \textbf{Internet security} Internet service providers (ISP) usually maintain a \emph{black-list} of potential attackers. Each ISP is motivated to know if others ISPs have some blacklist members in common without revealing the whole list.
+\item \textbf{Multimedia File Similarity} Digital media, e.g., images, audio, video, are increasingly relevant in today’s computing ecosystems. Consider two parties that wish to evaluate similarity of their media files, e.g., for plagiarism detection: sensitivity of possibly unreleased material (or copyright issues) may prevent parties from revealing actual content. 
+\end{itemize} 
 
-Each working group should prepare a brief proposal describing what they want
-to do.  Please make sure that everyone participates in the discussions and
-reviews the document.  The usual way to do this is to have a principle author,
-but to pass it around so that everyone can comment and add or edit.  Prepare the
-document using \LaTeX\/ because it is good practice and will help you learn the
-basics.  However, note that Google Docs (a.k.a. Google Drive) also allows
-\LaTeX\/ math symbols and is a reasonable alternative except for submissions
-to journals for professional use.  There is help for \LaTeX\/ on the
-class website.
-
-Write a brief introduction in which you  outline the scope of your proposed
-work. Use this space to explain why you are interested in this topic and what
-you hope to learn. Connect your interest with what is currently known, and
-include at least two references to related articles in the astronomical
-literature.  You can use ADS  \url{http://adswww.harvard.edu/} and other links
-on the class website \url{http://prancer.physics.louisville.edu/classes/308/}
-to help you find out more. An example citation is this paper
-\cite{gonzalez2012}.
-
-One to two pages should suffice for this part, but use more if you want.  
-Include figures or images if needed.  Figure~\ref{m42} is an example of  how to
-do it in \LaTeX.
+The aforementioned examples motivate the need for privacy-preserving sharing of confidential information
+and pose two main technical challenges: 
+\begin{enumerate}
+\item how to enable this type of sharing such that parties learn no information beyond what they are entitled to
+\item how to do so efficiently, in real-world practical terms.
+\end{enumerate} 
 
 
 %\begin{figure}
@@ -81,74 +66,103 @@ do it in \LaTeX.
 %\end{figure}
 
 
-\section{Targets}
+\section{Privacy-preserving cryptographic protocols}
+Motivated by the privacy challenges introduced by modern technologies, recently a lot of research activities has been focused in the field of \emph{Privacy-Enhancing Technologies} (PETs).
+Modern cryptography has contributed to PETs producing several cryptographic protocols for privacy protection. 
+A number of cryptographic protocols can be defined as the secure and privacy-preserving implementation of a public functionality $f$.
 
-Identify the targets you want to study.  Define their observable characteristics
-by giving their identifiers (e.g. common name if any, NGC or HD or other catalog
-entry you can find with AstroCC and Simbad), celestial coordinates, optical
-magnitudes, and angular size if the object is extended, that is, non-stellar.
-Please select targets that we have a good likelihood of observing:
+In the famous paradigm referred as \emph{Secure Multi-party Computation} (MPC) \cite{Yao}, two parties willing to compute a function $f$ over their input, they only learn the output of $f$ and nothing else besides what can be deduced from the output. The parties achieve this without the help of a trusted third party.
+We expect MPC protocols to run faster and faster in the future and thus allowing to use MPC in more
+and more scenarios where mutually distrusting parties desire to perform some cooperative computation over their inputs \cite{orlandi2011multiparty}.
+
+My objective is the secure computation of specific functionalities, using specialized protocols rather than generic solutions.
+The motivation is twofold:
+\begin{enumerate}
+\item not all information sharing functionalities can be easily implemented using generic solutions
+\item design optimized special-purpose protocols is often more efficient.
+\end{enumerate} 
+In many real applications, parties request sensitive information from other entities, e.g., to retrieve messages, files or database records. 
+
+The most prominent technique to address this problem is Oblivious Transfer (OT)\cite{oblivious}.
+OT permits a client to transfer one of potentially many messages to a server, remaining oblivious about the message transferred (if any).
+
+Similar techniques are \emph{Private Information Retrieval} (PIR) \cite{pir} and \emph{Private Set Intersection} (PSI) \cite{psi}. 
+
+In particular, PSI involves two parties, a server and a client, each with a private input set. PSI
+lets parties run a cryptographic protocol that only disclose to the client the set intersection, and
+nothing to the server (beyond client set size).
+In prior works, some variants of PSI have been introduced:
 \begin{itemize}
-\item Not fainter than magnitude 19 (18 is better)
-\item Not larger than $0.5^\circ$, but see below
-\item Above the horizon at either observatory for several hours this fall
+\item \emph{Private Set Intersection Cardinality} (PSI-CA) in which the client learns only the cardinality of the set intersection.
+\item \emph{Authorized Private Set Intersection} (APSI) in which each item in client set must be authorized by some mutually trusted authority in order to ensure that client obtain duly authorized information.
+\item \emph{Private Set Intersection with Data Transfer} (PSI-DT) in which the client also receives data records associated with each item in the intersection set.
 \end{itemize}
 
-A single 100 second exposure with the 0.5 meter telescopes will reach magnitude
-18 on a clear night.  Accurate quantitative measurements require a little
-brighter, or longer total accumulated exposures.  The telescopes resolve 1
-arcsecond in two pixels and have a field of view of $0.6^\circ$.  Larger fields
-must be mosaics of several exposures. These factors will affect your
-choices.  
+In PSI, an interesting privacy property is that of hiding the size of the set held by one party from the other \cite{size-psi}.
 
-For planetary imaging the CDK20's can take exposures as short as 0.01 seconds.
-The longest practical single exposure is about 300 seconds, but typically we
-take 100 second exposures and add them in order to make small guiding
-corrections between exposures. Use AstroCC with Stellarium to assure that the
-targets are observable this season.
+In \cite{lin-psi,linear-psi}, the authors designed PSI protocols with linear computational complexities.
 
-\section{Filters, exposures, and special requests}
-
-Assuming that the best telescope for your work is one of the two 0.5 meters
-(CDK20N at Moore Observatory, CDK20S at Mt. Kent), you will have a choice of
-filters:  Sloan filter set (g, r, i, or z),  Johnson-Cousins (U, B, V, R, or I),
-color imaging (B, G, R, or clear), and narrow band (S $[II]$, red continuum,
-H$\alpha$,  O$[III]$.  Identify which filters are of interest.
-
-A typical exposure time for a magnitude 12 star to about half saturation is 100
-seconds, but it depends on the filter choice.  Based on this, estimate how many
-exposures you will need, and what total time you require.  In some cases, for
-example studying an eclipsing or variable star, or an exoplanet transit, you
-would use only one filter and make many measurements over a night.  In others,
-you may make only a few exposures in each filter, and try many different
-filters.   Changing filter sets takes an operator and several minutes, but
-changing filters within one set (e.g. a different Sloan filter) takes only a few
-seconds.
-
-We have other telescopes that may be available at Moore Observatory this season.
-There is a wide field astrograph that has a field of view of $4^\circ$ and is a
-fast $f/4$,  especially good for large nebula, comets, or surveys.  A 14-inch
-(0.36 meter) Celestron  telescope can be equipped with a fast camera for
-planetary imaging.  A 27-inch (0.7 meter)  corrected Dall-Kirkham is scheduled
-to be be delivered to Australia this fall, although we are unsure of the actual
-date it could see light yet.  
-
-
- 
+\subsection{Open Problems}
+In recent years, there has been an increased interest in privacy-preserving protocols. 
+Nonetheless there are some problems, both theoretical and practical, that are still open.
+\subsubsection{Efficient Group Private Set Intersection}
+The traditional PSI formulation only includes two participants, server and client. However, it is not clear how to efficiently extend such techniques to scenarios where a group of n participants (with $n > 2$) wish to privately compute the intersection of their respective sets (without using a trusted or semi-trusted party). Multi-party PSI protocols with linear complexities still remains a challenging topic for further research.
+\subsubsection{Size-Hiding Private Set Intersection Secure in Malicious Model}
+In \cite{size-psi}, the PSI with the \emph{size-hiding} property, is provably secure under standard assumptions only against semi-honest adversaries. Future research is needed in order to design a size-hiding PSI secure against malicious adversaries.  
+\subsubsection{Privacy in genomic information}
+In \cite{genome}, the authors show how to enable privacy in genomic applications, e.g., paternity tests, genetic and personalized medicine testing. A further step in that direction is to implement specific cryptographic tools for genomic privacy protection.
 \begin{thebibliography}{99}
+\bibitem{Yao}
+	Protocols for secure computations,
+	A. Yao,
+	In FOCS, pages 160–164, 1982.
 
-\bibitem{gonzalez2012} Jonay I. Gonz\'{a}lez Hern\'{a}ndez,
-Pilar Ruiz-Lapuente,    
-Hugo M. Tabernero,    
-David Montes,    
-Ramon Canal,    
-Javier M\'{e}ndez    
-and Luigi R. Bedin,
-{No surviving evolved companions of the progenitor of SN1006},
-Nature, {\bf 489}, 533-536 (2012).
+\bibitem{orlandi2011multiparty}
+  	Is multiparty computation any good in practice?,
+  	Orlandi, Claudio,
+  	{Acoustics, Speech and Signal Processing (ICASSP), 2011 IEEE International Conference on},
+  	2011,
+  	IEEE.
+
+\bibitem{pir}
+	Private information retrieval,
+	B. Chor, E. Kushilevitz, O. Goldreich, and M. Sudan,
+	Journal of ACM, 45(6):965–981, 1998.
+
+\bibitem{oblivious}
+	How to exchange secrets by oblivious transfer,
+	M. Rabin,
+	TR-81, Harvard Aiken Computation Lab, 1981.
+
+\bibitem{psi}
+	Fast and Private Computation of Cardinality of Set Intersection and Union, 
+    Emiliano De Cristofaro and Paolo Gasti and Gene Tsudik,
+    Cryptology ePrint Archive, Report 2011/141,
+    2011.
+    
+\bibitem{size-psi}
+    (If) Size Matters: Size-Hiding Private Set Intersection,
+	Giuseppe Ateniese and Emiliano De Cristofaro and Gene Tsudik,
+    Cryptology ePrint Archive, Report 2010/220,
+	2010.
+
+\bibitem{lin-psi}
+	Emiliano De Cristofaro and Jihye Kim and Gene Tsudik,	
+	Linear-Complexity Private Set Intersection Protocols Secure in Malicious Model,
+	Cryptology ePrint Archive, Report 2010/469,
+	2010.
+
+\bibitem{linear-psi}
+	When Private Set Intersection Meets Big Data: An Efficient and Scalable Protocol,
+	Changyu Dong and Liqun Chen and Zikai Wen,
+	Cryptology ePrint Archive, Report 2013/515,
+	2013.
+	
+\bibitem{genome}
+P. Baldi, R. Baronio, E. De Cristofaro, P. Gasti, and G. Tsudik. Countering GATTACA:
+Efficient and Secure Testing of Fully-Sequenced Human Genomes. In CCS, 2011.
 
 \end{thebibliography}
-
 
 
 \end{document}
