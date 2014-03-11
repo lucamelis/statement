@@ -13,7 +13,7 @@
 \begin{document}
 
 
-\title{Sharing confidential information with privacy}
+\title{Sharing confidential information preserving the privacy}
 \author{Luca Melis}
 \date{\today}
 
@@ -21,68 +21,51 @@
 
 \maketitle
 \section{Motivations}
-The word \emph{privacy} commonly refers to the ability of a person or a group to make information about themselves private. The availability of sensitive information about an individual often results in having power over that person and thereby generating serious concerns on potential misuse by governments, corporations or even other individuals. Indeed, many countries have laws and constitutions that in some way limit privacy.
+The word \emph{privacy} commonly refers to the ability of a person or a group to make information about themselves private. Governments, corporations or even private individuals may use wrongly or improperly sensitive information regarding a person. Indeed, many countries have laws and constitutions that in some way limit privacy.
 
 
 In today's world, data is generally shared in a digital format and gathered by third parties.
-Thus the disclosure of private information is becoming a critical concern raising legal, monetary or even emotional, privacy issues.
+Thus the leak of private information is becoming a critical concern involving forensic and financial  privacy consequences.
    
-The need for privacy-preserving sharing of confidential information happens in many realistic scenarios.
-A typical scenario may involve two parties: one that needs information from the other that is either motivated, or obliged, to share only the requested information.
-Consequently, there is a struggle between the need of information sharing and the need of privacy.
+The need for privacy-preserving sharing of confidential information happens in many realistic situations.
+A typical scenario may involve two entities: one that that is either motivated, or obliged, to share only the information desired from the other.
+It is clear that in this case there is a strong contradiction between the need of information sharing and the need of privacy.
 
 Let's consider the following examples:
 \begin{itemize}
-\item \textbf{Law enforcement} Two national law enforcement bodies (e.g., USA’s FBI and UK’s MI5) want to compare their respective databases of terrorist suspects. National privacy laws prevent them from revealing bulk data, however, by treaty, they are allowed to share information on suspects of common interest.
-\item \textbf{Genomics} Genome Sequencing (WGS) is a revolutionary technology that determines the complete genetic blueprint of any organism. Risks of a genome disclosure motivate the need for secure storage and testing of human genomes. In particular, there is a need for genetic testing by physicians and/or laboratories without full access to individuals' genomes. In an idealized future setting, genetic tests should only disclose the required minimum amount of information. At the same time, genomics and biotechnology companies often treat test details as trade secrets, since they represent valuable intellectual property.
-\item \textbf{Face recognition} Automatic recognition of human faces is becoming increasingly popular in civilian and law enforcement applications that require reliable recognition of humans. A typical application scenario for privacy-preserving face recognition concerns a client who privately searches for a specific face image in the face image database of a server.
+\item \textbf{Law authorities} Two law enforcement agencies having different lists of terrorist suspects are motivated to make a comparison between their respective databases. Nonetheless, They cannot unveil their entire databases without breaking national privacy laws. On the other hand, they can uncover only a list of potential terrorists of mutual interest.
+\item \textbf{Genomics} Genome Sequencing is a process that determines the complete DNA sequence of an organism's genome at a single time. Biotechnology companies consider genetic test details as a valuable intellectual property and thus they want to unveil only the minimum amount of information required for the test.
+\item \textbf{Face recognition} Automatic recognition of human faces techniques are employed in a wide range of application ranging from surveillance systems to social networks raising privacy concerns. In such a scenario, a system for privacy-preserving face recognition may involve two parties: a client searching for a human face in the database of a server .
 \item \textbf{Internet security} Internet service providers (ISP) usually maintain a \emph{black-list} of potential attackers. Each ISP is motivated to know if others ISPs have some blacklist members in common without revealing the whole list.
-\item \textbf{Multimedia File Similarity} Digital media, e.g., images, audio, video, are increasingly relevant in today’s computing ecosystems. Consider two parties that wish to evaluate similarity of their media files, e.g., for plagiarism detection: sensitivity of possibly unreleased material (or copyright issues) may prevent parties from revealing actual content. 
+\item \textbf{Multimedia File Similarity} Copyright concerns prevents two parties, willing to compute the similarity of their multimedia files, to share the actual content of these files. Privacy-preserving techniques may represent a valid solution to overcome this problem.
 \end{itemize} 
 
-The aforementioned examples motivate the need for privacy-preserving sharing of confidential information
-and pose two main technical challenges: 
+The aforementioned examples motivate the need for techniques for sharing confidential information with privacy and present two interesting questions: 
 \begin{enumerate}
-\item how to enable this type of sharing so that parties learn no information beyond what they are entitled to
-\item how to do so efficiently, in real-world practical terms.
+\item how to permits privacy-preserving sharing of information allowing parties to learn only the strictly required information, 
+\item how to do build efficient techniques for privacy-preserving sharing of information.
 \end{enumerate} 
-
-
-%\begin{figure}
-%\begin{center}
-%\resizebox{6in}{!}{\includegraphics*{m42.jpg}}
-%\end{center}
-
-%\caption{The Orion Nebula, M42, recorded with the CDK20N telescope on the night
-%of November 1, 2011. This is a composite of three 100-second photometric images
-%in the Sloan g' (shown as blue), r' (shown as red), and i' (shown as green)
-%bands. The intensities are displayed with logarithmic compression. Click to see
-%the inner regions with square root compression. Highly reddened stars are
-%brighter in the infrared (i') and appear slightly green in these images.
-%\label{m42}}
-%
-%\end{figure}
 
 
 \section{Privacy-preserving cryptographic protocols}
-Motivated by the privacy challenges introduced by modern technologies, recently a lot of research activities has been focused in the field of \emph{Privacy-Enhancing Technologies} (PETs).
-Modern cryptography has contributed to PETs producing several cryptographic protocols for privacy protection. 
+Motivated by the privacy concerns introduced by modern technologies, recently a lot of research activities has been focused in the field of \emph{Privacy-Enhancing Technologies} (PETs).
+Modern cryptography has contributed to PETs, producing several cryptographic protocols for privacy-preserving. 
 A number of cryptographic protocols can be defined as the secure and privacy-preserving implementation of a public functionality $f$.
 
-In the famous paradigm referred as \emph{Secure Multi-party Computation} (MPC) \cite{Yao}, two parties, willing to compute a function $f$ over their input, will only learn the output of $f$ and nothing else besides what can be inferred from the output. 
+In the famous paradigm referred as \emph{Secure Multi-party Computation} (MPC) \cite{Yao}, two parties, willing to compute a function $f$ over their input, will only learn the output of $f$. This means that the two parties will not gain any further information about . 
 The parties achieve this without the help of a trusted third party.
-We expect MPC protocols to run faster and faster in the future, thus allowing to use MPC in more
-and more scenarios where mutually distrusting parties desire to perform some cooperative computation over their inputs \cite{orlandi2011multiparty}.
+In the near future, MPC protocols may have a significant boost in their performances, thus allowing to use MPC in many realistic scenarios \cite{orlandi2011multiparty}.
 
-My research objective will be focusing on the secure computation of specific functionalities, using specialized protocols rather than generic solutions.
-The motivation is twofold:
+My research objective will be focusing on the secure computation of specific functionalities, using specialized protocols rather than generic solutions such as those derived from MPC.
+Two important motivations are:
 \begin{enumerate}
-\item not all information sharing functionalities can be easily implemented using generic solutions
-\item design optimized special-purpose protocols is often more efficient.
+\item it is sometimes difficult to use generic solutions for implementing all the functionality needed for sharing information,
+\item ad-hoc protocols represent a more efficient way to do that.
 \end{enumerate} 
+
 In many real applications, parties request sensitive information from other entities, e.g., to retrieve messages, files or database records. 
 
-The most prominent technique to address this problem is Oblivious Transfer (OT)\cite{oblivious}.
+The most famous mechanism to address this problem is Oblivious Transfer (OT)\cite{oblivious}.
 OT permits a client to transfer one of potentially many messages to a server, remaining oblivious about the message transferred (if any).
 
 Similar techniques are \emph{Private Information Retrieval} (PIR) \cite{pir} and \emph{Private Set Intersection} (PSI) \cite{psi}. 
