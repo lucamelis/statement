@@ -21,83 +21,100 @@
 
 \maketitle
 \section{Motivations}
-The word \emph{privacy} commonly refers to the ability of a person or a group to make information about themselves private. Governments, corporations or even private individuals may use wrongly or improperly sensitive information regarding a person. Indeed, many countries have laws and constitutions that in some way limit privacy.
+%The word \emph{privacy} commonly refers to the ability of a person or a group to make information about themselves private. Governments, corporations or even private individuals may use wrongly or improperly sensitive information regarding a person. Indeed, many countries have laws and constitutions that in some way limit privacy.
 
 
 In today's world, data is generally shared in a digital format and gathered by third parties.
 Thus the leak of private information is becoming a critical concern involving forensic and financial privacy disputes.
    
 The need for privacy-preserving sharing of confidential information happens in many realistic situations.
-A typical scenario may involve two entities: one that that is either motivated, or obliged, to share only the information desired from the other.
+A typical scenario may involve two entities, one of which is either motivated, or obliged, to share only the information required from the other entity.
 It is clear that in this case there is a strong contradiction between the need of information sharing and the need of privacy.
 
-Let's consider the following examples:
+Consider the following examples:
 \begin{itemize}
-\item \textbf{Law authorities} Two law enforcement agencies having different lists of terrorist suspects are motivated to make a comparison between their respective databases. Nonetheless, they cannot unveil their entire databases without breaking national privacy laws. On the other hand, they can uncover only a list of potential terrorists of mutual interest.
-\item \textbf{Genomics} Genome Sequencing is a process that determines the complete DNA sequence of an organism's genome at a single time. Biotechnology companies consider genetic test details as a valuable intellectual property and thus they want to unveil only the minimum amount of information required for the test.
-\item \textbf{Face recognition} Automatic recognition of human faces techniques are employed in a wide range of applications ranging from surveillance systems to social networks and thus, raising several privacy concerns. In such a scenario, a system for privacy-preserving face recognition may involve two parties: a \emph{client} searching for a human face in the database of a \emph{server}.
+\item \textbf{Law authorities} Two law enforcement agencies having different lists of terrorist suspects are motivated to make a comparison between their respective databases. 
+Of course, they cannot unveil their entire databases without breaking national privacy laws. They only need to uncover a list of potential terrorists of mutual interest.
+\item \textbf{Genomics} Genome Sequencing is a process that determines the complete DNA sequence of an organism's genome at a single time. 
+On the one hand the availability of DNA sequences enables efficient testing and specialized treatments based on genomics features, but on the other hand the possible disclosure of personal information raises serious privacy concerns.
+%Biotechnology companies consider genetic test details as a valuable intellectual property and thus they want to unveil only the minimum amount of information required for the test.
+\item \textbf{Face recognition} Automatic recognition of human faces techniques are employed in a wide range of applications ranging from surveillance systems to social networks and thus, raising several privacy concerns. In such a scenario, a system for privacy-preserving face recognition may involve two parties: a \emph{client} searching for a human face in the database of a \emph{server}, and the \emph{server} itself.
 \item \textbf{Internet security} Internet service providers (ISP) usually maintain a \emph{black-list} of potential attackers. Each ISP is motivated to know if others ISPs have some blacklist members in common without revealing the whole list.
-\item \textbf{Multimedia File Similarity} Copyright concerns prevents two parties, willing to compute the similarity of their multimedia files, to share the actual content of these files. Privacy-preserving techniques may represent a valid solution to overcome this problem.
+\item \textbf{Multimedia File Similarity} Copyright concerns prevent two parties, willing to compute the similarity of their multimedia files, to share the actual content of these files. Privacy-preserving techniques may represent a valid solution to overcome this problem.
 \end{itemize} 
 
-The aforementioned examples motivate the need for techniques for sharing confidential information with privacy and present two interesting questions: 
+The aforementioned examples motivate the need for techniques for sharing confidential information and at the same time preserving privacy. 
+They also present two interesting questions: 
 \begin{enumerate}
-\item how to permits privacy-preserving sharing of information, allowing parties to learn only the strictly required information, 
+\item how to allow privacy-preserving sharing of information, allowing parties to learn only the strictly required information, 
 \item how to do build efficient techniques for privacy-preserving sharing of information.
 \end{enumerate} 
 
 
 \section{Privacy-preserving cryptographic protocols}
-Motivated by the privacy concerns introduced by modern technologies, recently a lot of research activities has been focused in the field of \emph{Privacy-Enhancing Technologies} (PETs).
+Following the privacy concerns introduced by modern technologies, a lot of research activities has recently focused on the field of \emph{Privacy-Enhancing Technologies} (PETs).
 Modern cryptography has contributed to PETs, producing several cryptographic protocols for privacy-preserving.
- 
-A number of cryptographic protocols can be defined as the secure and privacy-preserving implementation of a public functionality $f$.
 
-In the famous paradigm referred as \emph{Secure Multi-party Computation} (MPC) \cite{Yao}, two parties, willing to compute a function $f$ over their input, will only learn the output of $f$.
+Retrieving messages from a server or querying a database records are examples of situations in which entities may seek confidential data from other entities. 
+ 
+A number of cryptographic protocols can be defined as the secure implementation of a public functionality $f$.
+
+In the famous protocol referred as \emph{Secure Multi-party Computation} (MPC) \cite{Yao}, two parties, willing to compute a function $f$ over their input, will only learn the output of $f$.
 The parties achieve this without the help of a trusted third party.
 
-In the near future, MPC protocols may have a significant boost in their performances, thus allowing to use MPC in many realistic scenarios \cite{orlandi2011multiparty}.
+%In the near future, MPC protocols may have a significant boost in their performances, thus allowing to use MPC in many realistic scenarios \cite{orlandi2011multiparty}.
 
-My research objective will be focusing on the secure computation of specific functionalities, using specialized protocols rather than generic solutions such as those derived from MPC.
+An important primitive related to MPC is Oblivious Transfer (OT) \cite{oblivious}.
+OT allows a client to transfer one of potentially many pieces of information to a receiver, but the client itself remains oblivious as to what message (if any) has been transferred.
+
+Related techniques are \emph{Private Information Retrieval} (PIR) \cite{pir} and \emph{Private Set Intersection} (PSI) \cite{psi}. 
+
+In particular, PSI involves two parties, a server and a client, each with a private input set.
+At the end of a PSI protocol, the client will only learn the set intersection, but no information will be available to the server besides the client set size.
+
+In PSI, an interesting privacy property is that of hiding the size of the set held by one party from the other one \cite{size-psi}.
+
+In \cite{lin-psi,linear-psi}, the authors designed PSI protocols with linear computational complexities.
+
+My research objective will be focusing on the secure computation of specific functionalities, using specialized protocols based on PSI techniques rather than generic solutions such as those derived from MPC.
 Two valid motivations are:
 \begin{enumerate}
 \item it is sometimes difficult to use generic solutions for implementing all the functionalities needed for sharing information,
-\item ad-hoc protocols represent a more efficient way to do that.
+\item ad-hoc protocols represent, in many cases, a more efficient way to do that.
 \end{enumerate} 
 
-Retrieving messages from a server or querying a database records are examples of situations in which entities may seek confidential data from other entities. 
 
-The most famous mechanism to address this kind of problems is Oblivious Transfer (OT)\cite{oblivious}.
-OT permits a client to transfer one of potentially many pieces of information to a receiver, but remains oblivious as to what message (if any) has been transferred.
-
-Similar techniques are \emph{Private Information Retrieval} (PIR) \cite{pir} and \emph{Private Set Intersection} (PSI) \cite{psi}. 
-
-In particular, PSI involves two parties, a server and a client, each with a private input set.
-At the end of a PSI protocol, the client will only learns the set intersection, but no information will be available to the server besides the client set size.
-
-In prior works, some variants of PSI have been introduced:
-\begin{itemize}
-\item \emph{Private Set Intersection Cardinality} (PSI-CA) in which the client learns only the cardinality of the set intersection.
-\item \emph{Authorized Private Set Intersection} (APSI) in which each item in client set must be authorized by some mutually trusted third party in order to ensure that client obtains duly authorized information.
-\item \emph{Private Set Intersection with Data Transfer} (PSI-DT) in which the client also receives data records associated with each item in the intersection set.
-\end{itemize}
-
-In PSI, an interesting privacy property is that of hiding the size of the set held by one party from the other \cite{size-psi}.
-
-In \cite{lin-psi,linear-psi}, the authors designed PSI protocols with linear computational complexities.
+%In prior works, some variants of PSI have been introduced:
+%\begin{itemize}
+%\item \emph{Private Set Intersection Cardinality} (PSI-CA) in which the client learns only the cardinality of the set intersection.
+%\item \emph{Authorized Private Set Intersection} (APSI) in which each item in client set must be authorized by some mutually trusted third party in order to ensure that client obtains duly authorized information.
+%\item \emph{Private Set Intersection with Data Transfer} (PSI-DT) in which the client also receives data records associated with each item in the intersection set.
+%\end{itemize}
 
 \subsection{Open Problems}
 In our highly digitally and networked world, privacy-preserving protocols are becoming increasingly important. 
 However, there are some problems \cite{dissertation}, either theoretical or practical, that are still open and that represent the main directions for my future researches.
 \subsubsection{Multi-party PSI}
-The usual PSI protocols allows the participation of only two entities. 
+The usual PSI protocols allow the participation of only two entities. 
 An interesting extension of PSI protocols is that of allowing a group of $n > 2$ parties to share the intersection of their respective sets. The main challenge for future is that of designing an efficient multi-party PSI with linear complexity without the need for a trusted authority.
-\subsubsection{Size-Hiding PSI Secure in Malicious Model}
-One important factor on the security of cryptographic is the adversarial model which can be either semi-honest or malicious. Protocols secure against \emph{semi-honest adversaries} assume that participants strictly follow the steps of the protocols but they might attempt to infer additional information about other party's input. On the other hand, \emph{malicious adversaries} can deviate from the protocol without restrictions.
 
-In \cite{size-psi}, the PSI with the \emph{size-hiding} property, is secure only against semi-honest adversaries. Future research is needed in order to design a size-hiding PSI secure against malicious adversaries. 
+My approach to reduce the complexity of a Multi-party PSI will be to find an efficient way to represent an input set. The benefits of a good set representation choice are to reduce computation and communication overheads to the protocol. 
+
+\subsubsection{Size-Hiding PSI Secure in Malicious Model}
+One important factor on the security of cryptographic protocols is the adversarial model which can be either semi-honest or malicious. 
+Protocols secure against \emph{semi-honest adversaries} assume that participants strictly follow the steps of the protocols but they might attempt to infer additional information about other party's input. On the other hand, \emph{malicious adversaries} can deviate from the protocol without restrictions.
+
+In \cite{size-psi}, the PSI with the \emph{size-hiding} property, is secure only against semi-honest adversaries. Future research is needed in order to design a size-hiding PSI secure against malicious adversaries.
+ 
+A solution might be to ask the (malicious) sender to commit his private set and then run a \emph{zero-knowledge} (or \emph{quasi-knowledge} \cite{DBcommitment}) proof of knowledge of the committed set. 
+In this case, the witness provided in the proof of knowledge must not reveal the size of the set.  
+
 \subsubsection{Applications in genomic information testing with privacy}
-In \cite{genome}, the authors enable privacy in genomic testing applications such as paternity tests and personalized medicine testing. A further step in that direction is the practical implementation of ad-hoc cryptographic applications for genomic privacy protection. 
+Paternity tests and personalized medicine testing are examples of genomic testing applications in which privacy issues are becoming increasingly relevant.  
+
+In \cite{genome}, the authors show how to enable privacy in these applications, but the practical implementation of ad-hoc cryptographic frameworks for genomic privacy protection is still an open direction for future research. 
+
+In particular, my future researches will be focused in realizing techniques for certified forensic identification. In this scenario, the subject of investigation must be able to prove the authenticity of its input.
 
 \section{Personal background}
 My background is mainly that of a Computer Engineer.
@@ -105,69 +122,70 @@ I'm able to write software using the most important programming languages such a
 
 During my studies, I developed analytical skills and learnt how to deal with complex problems in a more systematic way. Some of the courses I followed turned out to be very relevant in the field of cryptography and information technology security.
  
-In particular, I took courses of cryptography and number theory at the faculty of mathematics and I became familiar with the fundamentals of Cryptography and abstract mathematics.
-At the faculty of computer engineering I took some courses of applied cryptography such as Network Security and Security of Multimedia Contents.
+In particular, I took courses of ``Cryptography'' and ``Number Theory'' at the faculty of mathematics and I became familiar with the fundamentals of cryptography and abstract mathematics.
+At the faculty of computer engineering I took some courses of applied cryptography such as ``Network Security'' and ``Security of Multimedia Contents''.
 
 In the practical realisation of my bachelor's degree thesis, I implemented a prominent cryptographic technique in the field of Multimedia contents security called \emph{Buyer-Seller protocol} \cite{tesi}. 
 The results of my implementation has been mentioned in \cite{tesi2}.
 I believe that my thesis has contributed to the improvement of my skills in the practical realization of  cryptographic protocols. These techniques also represent the main building blocks of the privacy-preserving protocols that constitute the subject of my PhD work.
 
 During my stay at the University of Aarhus, I worked on my master's degree thesis about the cryptographic problem of \emph{Learning Parity with Noise} (LPN) \cite{lpn} under the supervision of Ivan Damg{\aa}rd and Claudio Orlandi. 
-This thesis focused on theoretical aspects of cryptography. In this work I propose new cryptographic protocols derived from LPN where I deal with their correctness and security issues.
+This thesis focused on theoretical aspects of cryptography. In this work I propose new cryptographic protocols, derived from LPN, where I deal with their correctness and security issues.
 
-Finally, I would like to ask funding through departmental grants so as to have the opportunity to work closely and collaboratively with mentors and other graduate students on the long-term projects mentioned in this research proposal.
+Finally, I would definitely like to apply for a departmental grant so as to have the opportunity to work closely and collaboratively with mentors and other graduate students on the long-term projects mentioned in this research proposal.
+
 \begin{thebibliography}{99}
 
 \bibitem{Yao}
-	A. Yao,
+	A. Yao.
 	Protocols for secure computations,	
 	In FOCS, pages 160–164, 1982.
-
-\bibitem{orlandi2011multiparty}
-	Orlandi, Claudio,  	
-  	Is multiparty computation any good in practice?,
-  	{Acoustics, Speech and Signal Processing (ICASSP), 2011 IEEE International Conference on},
-  	2011,
-  	IEEE.
+%
+%\bibitem{orlandi2011multiparty}
+%	Orlandi, Claudio,  	
+%  	Is multiparty computation any good in practice?,
+%  	{Acoustics, Speech and Signal Processing (ICASSP), 2011 IEEE International Conference on},
+%  	2011,
+%  	IEEE.
 
 \bibitem{pir}
-	B. Chor, E. Kushilevitz, O. Goldreich, and M. Sudan,	
+	B. Chor, E. Kushilevitz, O. Goldreich, and M. Sudan.
 	Private information retrieval,
 	Journal of ACM, 45(6):965–981, 
 	1998.
 
 \bibitem{oblivious}
-	M. Rabin,
+	M. Rabin.
 	How to exchange secrets by oblivious transfer,
 	TR-81, Harvard Aiken Computation Lab, 
 	1981.
 
 \bibitem{psi}
-	Emiliano De Cristofaro and Paolo Gasti and Gene Tsudik,	
+	E. De Cristofaro, P. Gasti, and G. Tsudik.
 	Fast and Private Computation of Cardinality of Set Intersection and Union, 
     Cryptology ePrint Archive, Report 2011/141,
     2011.
     
 \bibitem{size-psi}
-	Giuseppe Ateniese and Emiliano De Cristofaro and Gene Tsudik,
+	G. Ateniese, E. De Cristofaro, and G. Tsudik.
     (If) Size Matters: Size-Hiding Private Set Intersection,
     Cryptology ePrint Archive, Report 2010/220,
 	2010.
 
 \bibitem{lin-psi}
-	Emiliano De Cristofaro and Jihye Kim and Gene Tsudik,	
+	E. De Cristofaro, J. Kim, and G. Tsudik.	
 	Linear-Complexity Private Set Intersection Protocols Secure in Malicious Model,
 	Cryptology ePrint Archive, Report 2010/469,
 	2010.
 
 \bibitem{linear-psi}
-	Changyu Dong and Liqun Chen and Zikai Wen,
+	C. Dong, L. Chen, and Z. Wen.
 	When Private Set Intersection Meets Big Data: An Efficient and Scalable Protocol,
 	Cryptology ePrint Archive, Report 2013/515,
 	2013.
 
 \bibitem{dissertation}
-	Emiliano De Cristofaro,
+	E. De Cristofaro.
 	Sharing Sensitive Information with Privacy,
 	PhD dissertation,
 	2011
@@ -179,24 +197,38 @@ Finally, I would like to ask funding through departmental grants so as to have t
 	2011.
 	
 \bibitem{tesi}
-	Deng, Mina and Bianchi, Tiziano and Piva, Alessandro and Preneel, Bart,
+	M. Deng, T. Bianchi, A. Piva, and B. Preneel.
 	An Efficient Buyer-seller Watermarking Protocol Based on Composite Signal Representation,
 	Proceedings of the 11th ACM Workshop on Multimedia and Security,
 	2009.
 	
 \bibitem{tesi2}
-	Rial, A. and Mina Deng and Bianchi, T. and Piva, A. and Preneel, B.
+	A. Rial, M. Deng, T. Bianchi, A. Piva, and B. Preneel.
 	A Provably Secure Anonymous Buyer; Seller Watermarking Protocol,
 	Information Forensics and Security, IEEE Transactions on,
 	2010	.	
 
 \bibitem{lpn}	
-	Melis, Luca and Orlandi, Claudio and Damg{\aa}rd, Ivan, 
-	On The Learning with Noise Problem,
+	L. Melis, C. Orlandi, and I. Damg{\aa}rd. 
+	On The Learning Parity with Noise Problem,
 	Master Thesis dissertation,
 	Available online: {\url{http://www.cs.au.dk/~orlandi/masterprojects/LucaMelis.pdf}},
 	2013.
-	
+
+\bibitem{DBcommitment}
+	M. Chase, I. Visconti.
+	Secure Database Commitments and Universal Arguments of Quasi Knowledge,
+	Cryptology ePrint Archive,
+	2012.	
+
+
+%@misc{cryptoeprint:2010:512,
+%    author = {Jung Hee Cheon and Stanislaw Jarecki and Jae Hong Seo},
+%    title = {Multi-Party Privacy-Preserving Set Intersection with Quasi-Linear Complexity},
+%    howpublished = {Cryptology ePrint Archive, Report 2010/512},
+%    year = {2010},
+%    note = {\url{http://eprint.iacr.org/}},
+%}
 
 \end{thebibliography}
 
